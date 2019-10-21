@@ -4,7 +4,6 @@ import java.io.InputStreamReader;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -23,157 +22,15 @@ public class KingTokyoPowerUpServer {
         new KingTokyoPowerUpServer();
     }
 
-    class Monsters {
-        public int maxHealth = 10;
-        public int currentHealth = 10;
-        public String name;
-        public int energy = 0;
-        public int stars = 0;
-        public boolean inTokyo = false;
-        ArrayList<Card> cards = new ArrayList<Card>();
-        public Socket connection = null;
-        public BufferedReader inFromClient = null;
-        public DataOutputStream outToClient = null;
 
-        public Monsters(String name) {
-            this.name = name;
-        }
-
-        // search all available cards and return the effect value of an effect
-        public int cardEffect(String effectName) {
-            for (int i = 0; i < cards.size(); i++) {
-                try {
-                    // Find variable by "name"
-                    if (Effect.class.getField(effectName).getInt(cards.get(i).effect) > 0) {
-                        return Effect.class.getField(effectName).getInt(cards.get(i).effect);
-                    }
-                } catch (Exception e) {
-                }
-            }
-            return 0;
-        }
-
-        public String cardsToString() {
-            String returnString = "";
-            if (cards.size() == 0)
-                return "[NO CARDS]:";
-            for (int i = 0; i < cards.size(); i++) {
-                returnString += "\t[" + i + "] " + cards.get(i) + ":";
-            }
-            return returnString;
-        }
-    }
-
-    class Deck {
-        public ArrayList<Card> deck = new ArrayList<Card>();
-        public Card[] store = new Card[3];
-
-        public Deck() {
-            Effect moreDamage = new Effect();
-            moreDamage.moreDamage = 1;
-            Effect cardsCostLess = new Effect();
-            cardsCostLess.cardsCostLess = 1;
-            Effect starsWhenAttacking = new Effect();
-            starsWhenAttacking.starsWhenAttacking = 1;
-            Effect stars3 = new Effect();
-            stars3.stars = 3;
-            Effect armor = new Effect();
-            armor.armor = 1;
-            Effect stars2 = new Effect();
-            stars2.stars = 2;
-            Effect stars1 = new Effect();
-            stars1.stars = 1;
-            deck.add(new Card("Acid Attack", 6, false, moreDamage, "Deal 1 extra damage each turn"));
-            deck.add(new Card("Alien Metabolism", 3, false, cardsCostLess, "Buying cards costs you 1 less"));
-            deck.add(new Card("Alpha Monster", 5, false, starsWhenAttacking, "Gain 1 star when you attack"));
-            deck.add(new Card("Apartment Building", 5, true, stars3, "+3 stars"));
-            deck.add(new Card("Armor Plating", 4, false, armor, "Ignore damage of 1"));
-            deck.add(new Card("Commuter Train", 4, true, stars2, "+2 stars"));
-            deck.add(new Card("Corner Stone", 3, true, stars1, "+1 stars"));
-            // Todo: Add more cards
-            Collections.shuffle(deck);
-            // Start the game with 3 cards face up in the store
-            for (int i = 0; i < 3; i++) {
-                store[i] = deck.remove(0);
-            }
-        }
-
-        // Print the store
-        public String toString() {
-            String returnString = "";
-            for (int i = 0; i < 3; i++) {
-                returnString += "\t[" + i + "] " + store[i] + ":";
-            }
-            return returnString;
-        }
-    }
-
-    class Card {
-        public String name;
-        public int cost;
-        public boolean discard;
-        public Effect effect;
-        public String description;
-
-        public Card(String name, int cost, boolean discard, Effect effect, String description) {
-            this.name = name;
-            this.cost = cost;
-            this.discard = discard;
-            this.effect = effect;
-            this.description = description;
-        }
-
-        public String toString() {
-            return name + ", Cost " + cost + ", " + (discard ? "DISCARD" : "KEEP") + ", Effect " + description;
-        }
-    }
-
-    class Effect {
-        public int moreDamage = 0; // Acid Attack
-        public int cardsCostLess = 0; // Alien Metabolism
-        public int starsWhenAttacking = 0; // Alpha monster
-        public int stars = 0; // Apartment Building, Commuter Train, Corner Stone
-        public int armor = 0; // Armor Plating
-    }
-
-    class Dice implements Comparable<Dice> {
-        public static final int HEART = 0;
-        public static final int ENERGY = 4;
-        public static final int CLAWS = 5;
-        public int value = -1;
-
-        public Dice(int value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return (value == HEART ? "HEART"
-                    : value == ENERGY ? "ENRGY"
-                            : value == CLAWS ? "CLAWS" : value == 1 ? "ONE" : value == 2 ? "TWO" : "THREE");
-        }
-
-        @Override
-        public int compareTo(Dice o) {
-            return value < o.value ? -1 : value == o.value ? 0 : 1;
-        }
-
-        public boolean equals(Object o) {
-            return value == ((Dice) o).value;
-        }
-
-        public int hashCode() {
-            return toString().hashCode();
-        }
-    }
-
-    private ArrayList<Monsters> monsters = new ArrayList<Monsters>();
+    private ArrayList<Monster> monsters = new ArrayList<Monster>();
     private Random ran = new Random();
     private Scanner sc = new Scanner(System.in);
 
     public KingTokyoPowerUpServer() {
-        Monsters kong = new Monsters("Kong");
-        Monsters gigazaur = new Monsters("Gigazaur");
-        Monsters alien = new Monsters("Alienoid");
+        Monster kong = new Monster("Kong");
+        Monster gigazaur = new Monster("Gigazaur");
+        Monster alien = new Monster("Alienoid");
         monsters.add(kong);
         monsters.add(gigazaur);
         monsters.add(alien);
@@ -213,7 +70,7 @@ public class KingTokyoPowerUpServer {
          */
         while (true) {
             for (int i = 0; i < monsters.size(); i++) {
-                Monsters currentMonster = monsters.get(i);
+                Monster currentMonster = monsters.get(i);
                 if (currentMonster.currentHealth <= 0) {
                     currentMonster.inTokyo = false;
                     continue;
@@ -269,7 +126,7 @@ public class KingTokyoPowerUpServer {
                 }
                 String ok = sendMessage(i, "ROLLED:You rolled " + result + " Press [ENTER]\n");
                 // 6a. Hearts = health (max 10 unless a cord increases it)
-                Dice aHeart = new Dice(Dice.HEART);
+                Dice aHeart = new Dice(Dice.getHEART());
                 if (result.containsKey(aHeart)) { // +1 currentHealth per heart, up to maxHealth
                     if (currentMonster.currentHealth + result.get(aHeart).intValue() >= currentMonster.maxHealth) {
                         currentMonster.currentHealth = currentMonster.maxHealth;
@@ -319,7 +176,7 @@ public class KingTokyoPowerUpServer {
                 }
                 // 6d. claws = attack (if in Tokyo attack everyone, else attack monster in
                 // Tokyo)
-                Dice aClaw = new Dice(Dice.CLAWS);
+                Dice aClaw = new Dice(Dice.getCLAWS());
                 if (result.containsKey(aClaw)) {
                     currentMonster.stars += currentMonster.cardEffect("starsWhenAttacking"); // Alpha Monster
                     if (currentMonster.inTokyo) {
@@ -356,7 +213,7 @@ public class KingTokyoPowerUpServer {
                     }
                 }
                 // 6f. energy = energy tokens
-                Dice anEnergy = new Dice(Dice.ENERGY);
+                Dice anEnergy = new Dice(Dice.getENERGY());
                 if (result.containsKey(anEnergy))
                     currentMonster.energy += result.get(anEnergy).intValue();
                 // 7. Decide to buy things for energy
@@ -364,48 +221,52 @@ public class KingTokyoPowerUpServer {
                         + currentMonster.energy + " energy) [#/-1]:" + deck + "\n";
                 String answer = sendMessage(i, msg);
                 int buy = Integer.parseInt(answer);
-                if (buy > 0 && (currentMonster.energy >= (deck.store[buy].cost
+                if (buy > 0 && (currentMonster.energy >= (deck.store[buy].getCost()
                         - currentMonster.cardEffect("cardsCostLess")))) { // Alien Metabolism
-                    if (deck.store[buy].discard) {
+                    if (deck.store[buy].getDiscard()) {
                         // 7a. Play "DISCARD" cards immediately
-                        currentMonster.stars += deck.store[buy].effect.stars;
+                        currentMonster.stars += deck.store[buy].getEffect().getStars();
                     } else
                         currentMonster.cards.add(deck.store[buy]);
                     // Deduct the cost of the card from energy
-                    currentMonster.energy += -(deck.store[buy].cost - currentMonster.cardEffect("cardsCostLess")); // Alient
+                    currentMonster.energy += -(deck.store[buy].getCost() - currentMonster.cardEffect("cardsCostLess")); // Alient
                                                                                                                    // Metabolism
                     // Draw a new card from the deck to replace the card that was bought
                     deck.store[buy] = deck.deck.remove(0);
                 }
-                // 8. Check victory conditions
-                int alive = 0;
-                String aliveMonster = "";
-                for (int mon = 0; mon < monsters.size(); mon++) {
-                    if (monsters.get(mon).stars >= 20) {
-                        for (int victory = 0; victory < monsters.size(); victory++) {
-                            String victoryByStars = sendMessage(victory,
-                                    "Victory: " + monsters.get(mon).name + " has won by stars\n");
-                        }
-                        System.exit(0);
-                    }
-                    if (monsters.get(mon).currentHealth > 0) {
-                        alive++;
-                        aliveMonster = monsters.get(mon).name;
-                    }
-                }
-                if (alive == 1) {
-                    for (int victory = 0; victory < monsters.size(); victory++) {
-                        String victoryByKills = sendMessage(victory,
-                                "Victory: " + aliveMonster + " has won by being the only one alive\n");
-                    }
-                    System.exit(0);
-                }
+                winCond();
             }
         }
     }
 
+    private void winCond() {
+        // 8. Check victory conditions
+        int alive = 0;
+        String aliveMonster = "";
+        for (int mon = 0; mon < monsters.size(); mon++) {
+            if (monsters.get(mon).stars >= 5) {
+                for (int victory = 0; victory < monsters.size(); victory++) {
+                    String victoryByStars = sendMessage(victory,
+                            "Victory: " + monsters.get(mon).name + " has won by stars\n");
+                }
+                System.exit(0);
+            }
+            if (monsters.get(mon).currentHealth > 0) {
+                alive++;
+                aliveMonster = monsters.get(mon).name;
+            }
+        }
+        if (alive == 1) {
+            for (int victory = 0; victory < monsters.size(); victory++) {
+                String victoryByKills = sendMessage(victory,
+                        "Victory: " + aliveMonster + " has won by being the only one alive\n");
+            }
+            System.exit(0);
+        }
+    }
+
     private String sendMessage(int recipient, String message) {
-        Monsters aMonster = monsters.get(recipient);
+        Monster aMonster = monsters.get(recipient);
         String response = "";
         if (aMonster.connection != null) {
             try {
