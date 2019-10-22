@@ -1,4 +1,3 @@
-
 public class Dice implements Comparable<Dice> {
     private static final int HEART = 0;
     private static final int ENERGY = 4;
@@ -10,18 +9,34 @@ public class Dice implements Comparable<Dice> {
     }
 
     public String toString() {
-        return (value == HEART ? "HEART"
-                : value == ENERGY ? "ENRGY"
-                        : value == CLAWS ? "CLAWS" : value == 1 ? "ONE" : value == 2 ? "TWO" : "THREE");
+        if (value == HEART) {
+            return "HEART";
+        } else if ( value == ENERGY) {
+            return "ENERGY";
+        } else if (value == CLAWS) {
+            return "CLAWS";
+        } else if (value == 1) {
+            return "ONE";
+        } else if (value == 2) {
+            return "TWO";
+        } else {
+            return "THREE";
+        }
     }
 
     @Override
-    public int compareTo(Dice o) {
-        return value < o.value ? -1 : value == o.value ? 0 : 1;
+    public int compareTo(Dice dice) throws NullPointerException  {
+        if (value < dice.value) {
+            return -1;
+        } else if ( value == dice.value) {
+            return 0;
+        } else {
+            return 1;
+        } 
     }
 
-    public boolean equals(Object o) {
-        return value == ((Dice) o).value;
+    public boolean equals(Object dice) {
+        return value == ((Dice) dice).value;
     }
 
     public int hashCode() {

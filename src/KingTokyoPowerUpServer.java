@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Random;
 import java.util.Scanner;
 
 public class KingTokyoPowerUpServer {
@@ -24,8 +23,10 @@ public class KingTokyoPowerUpServer {
 
 
     private ArrayList<Monster> monsters = new ArrayList<Monster>();
-    private Random ran = new Random();
-    private Scanner sc = new Scanner(System.in);
+    private Scanner scanner = new Scanner(System.in);
+    private Deck deck;
+    private SendMessage sendMessage;
+    private DiceController diceController;
 
     public KingTokyoPowerUpServer() {
         Monster kong = new Monster("Kong");
@@ -34,9 +35,13 @@ public class KingTokyoPowerUpServer {
         monsters.add(kong);
         monsters.add(gigazaur);
         monsters.add(alien);
+        Deck deck = new Deck();
+        SendMessage sendMessage = new SendMessage(monsters, scanner);
+        DiceController diceController = new DiceController(sendMessage);
+
+
         // Shuffle which player is which monster
         Collections.shuffle(monsters);
-        Deck deck = new Deck();
 
         // Server stuffs
         try {
@@ -88,43 +93,20 @@ public class KingTokyoPowerUpServer {
                     statusUpdate += monsters.get(count).energy + " energy, and owns the following cards:";
                     statusUpdate += monsters.get(count).cardsToString();
                 }
-                sendMessage(i, statusUpdate + "\n");
-                // 1. Roll 6 dice
-                ArrayList<Dice> dice = new ArrayList<Dice>();
-                dice = diceRoll(6);
-                // 2. Decide which dice to keep
-                String rolledDice = "ROLLED:You rolled:\t[1]\t[2]\t[3]\t[4]\t[5]\t[6]:";
-                for (int allDice = 0; allDice < dice.size(); allDice++) {
-                    rolledDice += "\t[" + dice.get(allDice) + "]";
-                }
-                rolledDice += ":Choose which dice to reroll, separate with comma and in decending order (e.g. 5,4,1   0 to skip)\n";
-                String[] reroll = sendMessage(i, rolledDice).split(",");
-                if (Integer.parseInt(reroll[0]) != 0)
-                    for (int j = 0; j < reroll.length; j++) {
-                        dice.remove(Integer.parseInt(reroll[j]) - 1);
-                    }
-                // 3. Reroll remaining dice
-                dice.addAll(diceRoll(6 - dice.size()));
-                // 4. Decide which dice to keep
-                rolledDice = "ROLLED:You rolled:\t[1]\t[2]\t[3]\t[4]\t[5]\t[6]:";
-                for (int allDice = 0; allDice < dice.size(); allDice++) {
-                    rolledDice += "\t[" + dice.get(allDice) + "]";
-                }
-                rolledDice += ":Choose which dice to reroll, separate with comma and in decending order (e.g. 5,4,1   0 to skip)\n";
-                reroll = sendMessage(i, rolledDice).split(",");
-                if (Integer.parseInt(reroll[0]) != 0)
-                    for (int j = 0; j < reroll.length; j++) {
-                        dice.remove(Integer.parseInt(reroll[j]) - 1);
-                    }
-                // 5. Reroll remaining dice
-                dice.addAll(diceRoll(6 - dice.size()));
-                // 6. Sum up totals
-                Collections.sort(dice);
+                sendMessage.sendMessage(i, statusUpdate + "\n");
+
+
+
+                diceController.diceLogic();
+
+
+
+
                 HashMap<Dice, Integer> result = new HashMap<Dice, Integer>();
-                for (Dice unique : new HashSet<Dice>(dice)) {
-                    result.put(unique, Collections.frequency(dice, unique));
+                for (Dice unique : new HashSet<Dice>(diceController.getDice())) {
+                    result.put(unique, Collections.frequency(diceController.getDice(), unique));
                 }
-                String ok = sendMessage(i, "ROLLED:You rolled " + result + " Press [ENTER]\n");
+                String ok = sendMessage.sendMessage(i, "ROLLED:You rolled " + result + " Press [ENTER]\n");
                 // 6a. Hearts = health (max 10 unless a cord increases it)
                 Dice aHeart = new Dice(Dice.getHEART());
                 if (result.containsKey(aHeart)) { // +1 currentHealth per heart, up to maxHealth
@@ -140,7 +122,7 @@ public class KingTokyoPowerUpServer {
                             // Todo: Add support for more cards.
                             // Current support is only for the Red Dawn card
                             // Add support for keeping it secret until played
-                            String power = sendMessage(i, "POWERUP:Deal 2 damage to all others\n");
+                            String power = sendMessage.sendMessage(i, "POWERUP:Deal 2 damage to all others\n");
                             for (int mon = 0; mon < monsters.size(); mon++) {
                                 if (mon != i) {
                                     monsters.get(mon).currentHealth += -2;
@@ -151,7 +133,7 @@ public class KingTokyoPowerUpServer {
                             // Todo: Add support for more cards.
                             // Current support is only for the Radioactive Waste
                             // Add support for keeping it secret until played
-                            String power = sendMessage(i, "POWERUP:Receive 2 energy and 1 health\n");
+                            String power = sendMessage.sendMessage(i, "POWERUP:Receive 2 energy and 1 health\n");
                             currentMonster.energy += 2;
                             if (currentMonster.currentHealth + 1 >= currentMonster.maxHealth) {
                                 currentMonster.currentHealth = currentMonster.maxHealth;
@@ -163,7 +145,7 @@ public class KingTokyoPowerUpServer {
                             // Todo: Add support for more cards.
                             // Current support is only for the Alien Scourge
                             // Add support for keeping it secret until played
-                            String power = sendMessage(i, "POWERUP:Receive 2 stars\n");
+                            String power = sendMessage.sendMessage(i, "POWERUP:Receive 2 stars\n");
                             currentMonster.stars += 2;
                         }
                     }
@@ -198,7 +180,7 @@ public class KingTokyoPowerUpServer {
                                     monsters.get(mon).currentHealth += -totalDamage;
                                 // 6e. If you were outside, then the monster inside tokyo may decide to leave
                                 // Tokyo
-                                String answer = sendMessage(mon, "ATTACKED:You have " + monsters.get(mon).currentHealth
+                                String answer = sendMessage.sendMessage(mon, "ATTACKED:You have " + monsters.get(mon).currentHealth
                                         + " health left. Do you wish to leave Tokyo? [YES/NO]\n");
                                 if (answer.equalsIgnoreCase("YES")) {
                                     monsters.get(mon).inTokyo = false;
@@ -219,34 +201,35 @@ public class KingTokyoPowerUpServer {
                 // 7. Decide to buy things for energy
                 String msg = "PURCHASE:Do you want to buy any of the cards from the store? (you have "
                         + currentMonster.energy + " energy) [#/-1]:" + deck + "\n";
-                String answer = sendMessage(i, msg);
+                String answer = sendMessage.sendMessage(i, msg);
                 int buy = Integer.parseInt(answer);
-                if (buy > 0 && (currentMonster.energy >= (deck.store[buy].getCost()
+                if (buy > 0 && (currentMonster.energy >= (deck.getStoreCard(buy).getCost()
                         - currentMonster.cardEffect("cardsCostLess")))) { // Alien Metabolism
-                    if (deck.store[buy].getDiscard()) {
+                    if (deck.getStoreCard(buy).getDiscard()) {
                         // 7a. Play "DISCARD" cards immediately
-                        currentMonster.stars += deck.store[buy].getEffect().getStars();
+                        currentMonster.stars += deck.getStoreCard(buy).getEffect().getStars();
                     } else
-                        currentMonster.cards.add(deck.store[buy]);
+                        currentMonster.cards.add(deck.getStoreCard(buy));
                     // Deduct the cost of the card from energy
-                    currentMonster.energy += -(deck.store[buy].getCost() - currentMonster.cardEffect("cardsCostLess")); // Alient
+                    currentMonster.energy += -(deck.getStoreCard(buy).getCost() - currentMonster.cardEffect("cardsCostLess")); // Alient
                                                                                                                    // Metabolism
                     // Draw a new card from the deck to replace the card that was bought
-                    deck.store[buy] = deck.deck.remove(0);
+                    // deck.store[buy] = deck.deck.remove(0);
+                    deck.removeStoreCard(buy);
                 }
-                winCond();
+                winCondition();
             }
         }
     }
 
-    private void winCond() {
+    private void winCondition() {
         // 8. Check victory conditions
         int alive = 0;
         String aliveMonster = "";
         for (int mon = 0; mon < monsters.size(); mon++) {
             if (monsters.get(mon).stars >= 5) {
                 for (int victory = 0; victory < monsters.size(); victory++) {
-                    String victoryByStars = sendMessage(victory,
+                    String victoryByStars = sendMessage.sendMessage(victory,
                             "Victory: " + monsters.get(mon).name + " has won by stars\n");
                 }
                 System.exit(0);
@@ -258,41 +241,41 @@ public class KingTokyoPowerUpServer {
         }
         if (alive == 1) {
             for (int victory = 0; victory < monsters.size(); victory++) {
-                String victoryByKills = sendMessage(victory,
+                String victoryByKills = sendMessage.sendMessage(victory,
                         "Victory: " + aliveMonster + " has won by being the only one alive\n");
             }
             System.exit(0);
         }
     }
 
-    private String sendMessage(int recipient, String message) {
-        Monster aMonster = monsters.get(recipient);
-        String response = "";
-        if (aMonster.connection != null) {
-            try {
-                aMonster.outToClient.writeBytes(message);
-                response = aMonster.inFromClient.readLine();
-            } catch (Exception e) {
-            }
-        } else {
-            String[] theMessage = message.split(":");
-            for (int i = 0; i < theMessage.length; i++) {
-                System.out.println(theMessage[i].toString());
-            }
-            if (!(theMessage[0].equals("ATTACKED") || theMessage[0].equals("ROLLED")
-                    || theMessage[0].equals("PURCHASE")))
-                System.out.println("Press [ENTER]");
-            response = sc.nextLine();
-        }
-        return response;
-    }
+    // private String sendMessage(int recipient, String message) {
+    //     Monster aMonster = monsters.get(recipient);
+    //     String response = "";
+    //     if (aMonster.connection != null) {
+    //         try {
+    //             aMonster.outToClient.writeBytes(message);
+    //             response = aMonster.inFromClient.readLine();
+    //         } catch (Exception e) {
+    //         }
+    //     } else {
+    //         String[] theMessage = message.split(":");
+    //         for (int i = 0; i < theMessage.length; i++) {
+    //             System.out.println(theMessage[i].toString());
+    //         }
+    //         if (!(theMessage[0].equals("ATTACKED") || theMessage[0].equals("ROLLED")
+    //                 || theMessage[0].equals("PURCHASE")))
+    //             System.out.println("Press [ENTER]");
+    //         response = sc.nextLine();
+    //     }
+    //     return response;
+    // }
 
-    private ArrayList<Dice> diceRoll(int nrOfDice) {
-        ArrayList<Dice> dice = new ArrayList<Dice>();
-        for (int i = 0; i < nrOfDice; i++) {
-            dice.add(new Dice(ran.nextInt(6)));
-        }
-        return dice;
-    }
+    // private ArrayList<Dice> diceRoll(int nrOfDice) {
+    //     ArrayList<Dice> dice = new ArrayList<Dice>();
+    //     for (int i = 0; i < nrOfDice; i++) {
+    //         dice.add(new Dice(ran.nextInt(6)));
+    //     }
+    //     return dice;
+    // }
 
 }
