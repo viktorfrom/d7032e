@@ -6,7 +6,7 @@ import java.util.Scanner;
 
 public class KingTokyoPowerUpClient {
 
-    private Scanner sc = new Scanner(System.in);
+    private Scanner scanner = new Scanner(System.in);
 
     public KingTokyoPowerUpClient(boolean bot) {
         String name = "";
@@ -30,7 +30,7 @@ public class KingTokyoPowerUpClient {
                     if (bot)
                         outToServer.writeBytes("YES\n");
                     else {
-                        outToServer.writeBytes(sc.nextLine() + "\n");
+                        outToServer.writeBytes(scanner.nextLine() + "\n");
                     }
                 } else if (message[0].equalsIgnoreCase("ROLLED")) {
                     if (bot) {
@@ -40,19 +40,19 @@ public class KingTokyoPowerUpClient {
                         String reroll = "" + num1 + "," + num2 + "\n";
                         outToServer.writeBytes(reroll);// Some randomness at least
                     } else {
-                        outToServer.writeBytes(sc.nextLine() + "\n");
+                        outToServer.writeBytes(scanner.nextLine() + "\n");
                     }
                 } else if (message[0].equalsIgnoreCase("PURCHASE")) {
                     if (bot)
                         outToServer.writeBytes("-1\n");
                     else
-                        outToServer.writeBytes(sc.nextLine() + "\n");
+                        outToServer.writeBytes(scanner.nextLine() + "\n");
                 } else {
                     if (bot)
                         outToServer.writeBytes("OK\n");
                     else {
                         System.out.println("Press [ENTER]");
-                        sc.nextLine();
+                        scanner.nextLine();
                         outToServer.writeBytes("OK\n");
                     }
                 }

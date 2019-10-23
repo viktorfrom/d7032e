@@ -23,7 +23,7 @@ public class KingTokyoPowerUpServer {
 
 
     private ArrayList<Monster> monsters = new ArrayList<Monster>();
-    private Scanner scanner = new Scanner(System.in);
+    private Scanner scanner;
     private Deck deck;
     private SendMessage sendMessage;
     private DiceController diceController;
@@ -35,9 +35,10 @@ public class KingTokyoPowerUpServer {
         monsters.add(kong);
         monsters.add(gigazaur);
         monsters.add(alien);
-        Deck deck = new Deck();
-        SendMessage sendMessage = new SendMessage(monsters, scanner);
-        DiceController diceController = new DiceController(sendMessage);
+        deck = new Deck();
+        scanner = new Scanner(System.in);
+        sendMessage = new SendMessage(monsters, scanner);
+        diceController = new DiceController(sendMessage);
 
 
         // Shuffle which player is which monster
@@ -95,12 +96,7 @@ public class KingTokyoPowerUpServer {
                 }
                 sendMessage.sendMessage(i, statusUpdate + "\n");
 
-
-
-                diceController.diceLogic();
-
-
-
+                diceController.diceLogic(i);
 
                 HashMap<Dice, Integer> result = new HashMap<Dice, Integer>();
                 for (Dice unique : new HashSet<Dice>(diceController.getDice())) {
@@ -247,35 +243,4 @@ public class KingTokyoPowerUpServer {
             System.exit(0);
         }
     }
-
-    // private String sendMessage(int recipient, String message) {
-    //     Monster aMonster = monsters.get(recipient);
-    //     String response = "";
-    //     if (aMonster.connection != null) {
-    //         try {
-    //             aMonster.outToClient.writeBytes(message);
-    //             response = aMonster.inFromClient.readLine();
-    //         } catch (Exception e) {
-    //         }
-    //     } else {
-    //         String[] theMessage = message.split(":");
-    //         for (int i = 0; i < theMessage.length; i++) {
-    //             System.out.println(theMessage[i].toString());
-    //         }
-    //         if (!(theMessage[0].equals("ATTACKED") || theMessage[0].equals("ROLLED")
-    //                 || theMessage[0].equals("PURCHASE")))
-    //             System.out.println("Press [ENTER]");
-    //         response = sc.nextLine();
-    //     }
-    //     return response;
-    // }
-
-    // private ArrayList<Dice> diceRoll(int nrOfDice) {
-    //     ArrayList<Dice> dice = new ArrayList<Dice>();
-    //     for (int i = 0; i < nrOfDice; i++) {
-    //         dice.add(new Dice(ran.nextInt(6)));
-    //     }
-    //     return dice;
-    // }
-
 }
