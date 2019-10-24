@@ -14,6 +14,7 @@ public class ServerConnection {
     }
 
     public void connectToClient() throws IOException {
+        System.out.println("Server up and running. trying to establish connection to client(s)...");
         try {
             ServerSocket aSocket = new ServerSocket(2048);
             // assume two online clients
@@ -28,8 +29,9 @@ public class ServerConnection {
                 this.monsters.get(onlineClient).inFromClient = inFromClient;
                 this.monsters.get(onlineClient).outToClient = outToClient;
 
-                System.out.println("Connected to " + this.monsters.get(onlineClient).name);
+                System.out.println("Eastablished connection to " + this.monsters.get(onlineClient).name);
             }
+
         } catch (IOException Error) {
             System.out.println("Error: Could not establish connection to client(s)." + Error);
 

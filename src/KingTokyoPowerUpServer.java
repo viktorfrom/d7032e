@@ -2,9 +2,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class KingTokyoPowerUpServer {
-
-
-
     private ArrayList<Monster> monsters;
     private ServerConnection serverConnection;
     private GameLogic gameLogic;
@@ -16,7 +13,7 @@ public class KingTokyoPowerUpServer {
         serverConnection.connectToClient();
 
         while (true) {
-            gameLogic.runGame();
+            gameLogic.playerTurn();
         }
     }
 
@@ -25,9 +22,6 @@ public class KingTokyoPowerUpServer {
      * @throws IOException
      */
     public static void main(String[] args) throws IOException {
-        // TODO code application logic here
-        // https://www.youtube.com/watch?v=HqdOaAzPtek
-        // https://boardgamegeek.com/thread/1408893/categorizing-cards
         new KingTokyoPowerUpServer();
     }
 }

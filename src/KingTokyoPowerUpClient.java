@@ -87,9 +87,10 @@ public class KingTokyoPowerUpClient {
     }
 
     public static void main(String argv[]) throws IOException {
-        if (argv.length != 0)
+        if (argv.length != 0) {
             new KingTokyoPowerUpClient(true);
-        else
+        } else {
             new KingTokyoPowerUpClient(false);
+        }
     }
 }

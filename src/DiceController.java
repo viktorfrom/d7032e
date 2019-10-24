@@ -5,20 +5,23 @@ import java.util.HashSet;
 import java.util.Random;
 
 public class DiceController {
-    private ArrayList<Dice> dice;
     private static Random random = new Random();
+    private ArrayList<Dice> dice;
     private SendMessage sendMessage;
     private String rolledDice;
     private String[] reroll;
-    private HashMap<Dice, Integer> result;
+    DiceResult diceResult;
+    // private HashMap<Dice, Integer> result;
 
-    public DiceController(SendMessage sendMessage, HashMap<Dice, Integer> result) {
+    public DiceController(ArrayList<Monster> monsters, SendMessage sendMessage, HashMap<Dice, Integer> result,
+            Deck deck) {
+        diceResult = new DiceResult(monsters, sendMessage, result, deck);
         this.sendMessage = sendMessage;
-        this.result = result;
+        // this.result = result;
         this.rolledDice = "";
     }
 
-    public void diceLogic(int i) {
+    public void diceController(int i) {
         this.dice = diceRoll(6);
 
         for (int j = 0; j < 2; j++) {
@@ -29,6 +32,7 @@ public class DiceController {
 
         diceResult();
         Collections.sort(dice);
+        sendMessage.sendMessage(i, "ROLLED:You rolled " + diceResult.getResult() + " Press [ENTER]\n");
     }
 
     private void rerollDice(int i) {
@@ -42,7 +46,7 @@ public class DiceController {
 
     private void diceResult() {
         for (Dice unique : new HashSet<Dice>(getDice())) {
-            this.result.put(unique, Collections.frequency(getDice(), unique));
+            diceResult.getResult().put(unique, Collections.frequency(getDice(), unique));
         }
     }
 

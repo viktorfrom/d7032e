@@ -49,6 +49,7 @@ public class Deck {
         }
         return returnString;
     }
+
     public Effect getDamage() {
         return this.damage;
     }
