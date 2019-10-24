@@ -44,6 +44,7 @@ public class Monster {
     public String getName() {
         return this.name;
     }
+
     public String cardsToString() {
         String returnString = "";
         if (cards.size() == 0)

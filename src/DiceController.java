@@ -20,13 +20,13 @@ public class DiceController {
 
     public void diceLogic(int i) {
         this.dice = diceRoll(6);
-        rolledDice();
-        rerollDice(i);
-        this.dice.addAll(diceRoll(6 - this.dice.size()));
 
-        rolledDice();
-        rerollDice(i);
-        this.dice.addAll(diceRoll(6 - this.dice.size()));
+        for (int j = 0; j < 2; j++) {
+            rolledDice();
+            rerollDice(i);
+            this.dice.addAll(diceRoll(6 - this.dice.size()));
+        }
+
         diceResult();
         Collections.sort(dice);
     }

@@ -20,7 +20,6 @@ public class Card {
         } else {
             func = "KEEP";
         }
-
         return name + ", Cost " + cost + ", " + func + ", Effect " + description;
     }
 

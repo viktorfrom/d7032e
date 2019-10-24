@@ -22,10 +22,10 @@ public class Deck {
         gainTwoStars.setStars(2);
         gainThreeStars.setStars(3);
 
-        initiateDeck();
+        initDeck();
     }
 
-    private void initiateDeck() {
+    private void initDeck() {
         deck.add(new Card("Acid Attack", 6, false, damage, "Deal 1 extra damage each turn"));
         deck.add(new Card("Alien Metabolism", 3, false, cardPrice, "Buying cards costs you 1 less"));
         deck.add(new Card("Alpha Monster", 5, false, starsOnAttack, "Gain 1 star when you attack"));
