@@ -35,7 +35,7 @@ public class Monster {
                 if (Effect.class.getField(effectName).getInt(cards.get(i).getEffect()) > 0) {
                     return Effect.class.getField(effectName).getInt(cards.get(i).getEffect());
                 }
-            } catch (Exception e) {
+            } catch (Exception Error) {
             }
         }
         return 0;

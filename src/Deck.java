@@ -5,22 +5,22 @@ public class Deck {
     private ArrayList<Card> deck = new ArrayList<Card>();
     private Card[] store = new Card[3];
 
-    Effect damage = new Effect();
-    Effect cardPrice = new Effect();
-    Effect starsOnAttack = new Effect();
-    Effect armor = new Effect();
-    Effect stars1 = new Effect();
-    Effect stars2 = new Effect();
-    Effect stars3 = new Effect();
+    private Effect damage = new Effect();
+    private Effect cardPrice = new Effect();
+    private Effect starsOnAttack = new Effect();
+    private Effect armor = new Effect();
+    private Effect gainOneStars = new Effect();
+    private Effect gainTwoStars = new Effect();
+    private Effect gainThreeStars = new Effect();
 
     public Deck() {
         damage.setDamage(1);
         cardPrice.setCardPrice(1);
         starsOnAttack.setStarsOnAttack(1);
         armor.setArmor(1);
-        stars1.setStars(1);
-        stars2.setStars(2);
-        stars3.setStars(3);
+        gainOneStars.setStars(1);
+        gainTwoStars.setStars(2);
+        gainThreeStars.setStars(3);
 
         initiateDeck();
     }
@@ -29,10 +29,10 @@ public class Deck {
         deck.add(new Card("Acid Attack", 6, false, damage, "Deal 1 extra damage each turn"));
         deck.add(new Card("Alien Metabolism", 3, false, cardPrice, "Buying cards costs you 1 less"));
         deck.add(new Card("Alpha Monster", 5, false, starsOnAttack, "Gain 1 star when you attack"));
-        deck.add(new Card("Apartment Building", 5, true, stars3, "+3 stars"));
+        deck.add(new Card("Apartment Building", 5, true, gainThreeStars, "+3 stars"));
         deck.add(new Card("Armor Plating", 4, false, armor, "Ignore damage of 1"));
-        deck.add(new Card("Commuter Train", 4, true, stars2, "+2 stars"));
-        deck.add(new Card("Corner Stone", 3, true, stars1, "+1 stars"));
+        deck.add(new Card("Commuter Train", 4, true, gainTwoStars, "+2 stars"));
+        deck.add(new Card("Corner Stone", 3, true, gainOneStars, "+1 stars"));
         // Todo: Add more cards
         Collections.shuffle(deck);
         // Start the game with 3 cards face up in the store

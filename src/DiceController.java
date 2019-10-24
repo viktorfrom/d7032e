@@ -1,5 +1,7 @@
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Random;
 
 public class DiceController {
@@ -8,9 +10,11 @@ public class DiceController {
     private SendMessage sendMessage;
     private String rolledDice;
     private String[] reroll;
+    private HashMap<Dice, Integer> result;
 
-    public DiceController(SendMessage sendMessage) {
+    public DiceController(SendMessage sendMessage, HashMap<Dice, Integer> result) {
         this.sendMessage = sendMessage;
+        this.result = result;
         this.rolledDice = "";
     }
 
@@ -23,6 +27,7 @@ public class DiceController {
         rolledDice();
         rerollDice(i);
         this.dice.addAll(diceRoll(6 - this.dice.size()));
+        diceResult();
         Collections.sort(dice);
     }
 
@@ -33,6 +38,12 @@ public class DiceController {
             for (int j = 0; j < reroll.length; j++) {
                 dice.remove(Integer.parseInt(reroll[j]) - 1);
             }
+    }
+
+    private void diceResult() {
+        for (Dice unique : new HashSet<Dice>(getDice())) {
+            this.result.put(unique, Collections.frequency(getDice(), unique));
+        }
     }
 
     private void rolledDice() {

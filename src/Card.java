@@ -12,14 +12,22 @@ public class Card {
         this.effect = effect;
         this.description = description;
     }
+
     public String toString() {
-        return name + ", Cost " + cost + ", " + (discard ? "DISCARD" : "KEEP") + ", Effect " + description;
+        String func = "";
+        if (this.discard) {
+            func = "DISCARD";
+        } else {
+            func = "KEEP";
+        }
+
+        return name + ", Cost " + cost + ", " + func + ", Effect " + description;
     }
 
     public String getName() {
         return this.name;
     }
-    
+
     public int getCost() {
         return this.cost;
     }

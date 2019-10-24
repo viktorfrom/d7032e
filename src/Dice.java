@@ -8,11 +8,12 @@ public class Dice implements Comparable<Dice> {
         this.value = value;
     }
 
+    // ENERGY, SHOVES DICE RESULTS IF WRITTEN WITH AN EXTRA "E"
     public String toString() {
         if (value == HEART) {
             return "HEART";
         } else if ( value == ENERGY) {
-            return "ENERGY";
+            return "ENRGY";
         } else if (value == CLAWS) {
             return "CLAWS";
         } else if (value == 1) {
