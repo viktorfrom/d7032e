@@ -3,7 +3,7 @@ import java.util.Collections;
 
 public class Deck {
     private ArrayList<Card> deck = new ArrayList<Card>();
-    private Card[] store = new Card[3];
+    private Store store;
 
     private Effect damage = new Effect();
     private Effect cardPrice = new Effect();
@@ -13,7 +13,8 @@ public class Deck {
     private Effect gainTwoStars = new Effect();
     private Effect gainThreeStars = new Effect();
 
-    public Deck() {
+    public Deck(SendMessage sendMessage) {
+        store = new Store(sendMessage);
         damage.setDamage(1);
         cardPrice.setCardPrice(1);
         starsOnAttack.setStarsOnAttack(1);
@@ -35,31 +36,19 @@ public class Deck {
         deck.add(new Card("Corner Stone", 3, true, gainOneStars, "+1 stars"));
         // Todo: Add more cards
         Collections.shuffle(deck);
+
         // Start the game with 3 cards face up in the store
         for (int i = 0; i < 3; i++) {
-            store[i] = deck.remove(0);
+            store.setStoreCard(i, deck.remove(0));
         }
     }
 
-    // Print the store
-    public String toString() {
-        String returnString = "";
-        for (int i = 0; i < 3; i++) {
-            returnString += "\t[" + i + "] " + store[i] + ":";
-        }
-        return returnString;
+    public Store getStore() {
+        return this.store;
     }
 
     public Effect getDamage() {
         return this.damage;
-    }
-
-    public void removeStoreCard(int card) {
-        store[card] = deck.remove(0);
-    }
-
-    public Card getStoreCard(int card) {
-        return this.store[card];
     }
 
     public ArrayList<Card> getDeck() {

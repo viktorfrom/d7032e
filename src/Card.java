@@ -13,6 +13,7 @@ public class Card {
         this.description = description;
     }
 
+    // The toString() method returns the string representation of the object.
     public String toString() {
         String func = "";
         if (this.discard) {

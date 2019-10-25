@@ -11,13 +11,11 @@ public class DiceController {
     private String rolledDice;
     private String[] reroll;
     DiceResult diceResult;
-    // private HashMap<Dice, Integer> result;
 
     public DiceController(ArrayList<Monster> monsters, SendMessage sendMessage, HashMap<Dice, Integer> result,
             Deck deck) {
-        diceResult = new DiceResult(monsters, sendMessage, result, deck);
+        diceResult = new DiceResult(monsters, sendMessage, result);
         this.sendMessage = sendMessage;
-        // this.result = result;
         this.rolledDice = "";
     }
 

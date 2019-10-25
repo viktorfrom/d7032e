@@ -5,18 +5,15 @@ public class DiceResult {
     private ArrayList<Monster> monsters;
     private SendMessage sendMessage;
     private HashMap<Dice, Integer> result;
-    private Deck deck;
     private Store store;
 
-    public DiceResult(ArrayList<Monster> monsters, SendMessage sendMessage, HashMap<Dice, Integer> result, Deck deck) {
-        store = new Store(deck, sendMessage);
+    public DiceResult(ArrayList<Monster> monsters, SendMessage sendMessage, HashMap<Dice, Integer> result) {
         this.sendMessage = sendMessage;
         this.monsters = monsters;
         this.result = result;
-        this.deck = deck;
     }
 
-    public void diceResult(int i, Monster currentMonster) {
+    public void diceResult(int i, Monster currentMonster, Deck deck) {
         // 6a. Hearts = health (max 10 unless a cord increases it)
         // 6c. 3 of a number = victory points
         heartResult(i, currentMonster);
@@ -25,7 +22,7 @@ public class DiceResult {
         clawResult(i, currentMonster);
         energyResult(currentMonster);
         // 7. Decide to buy things for energy
-        store.storeWindow(i, currentMonster);
+        deck.getStore().storeWindow(i, currentMonster, deck.getDeck().remove(0));
 
     }
 

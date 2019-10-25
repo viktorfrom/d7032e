@@ -45,6 +45,7 @@ public class Monster {
         return this.name;
     }
 
+    // The toString() method returns the string representation of the object.
     public String cardsToString() {
         String returnString = "";
         if (cards.size() == 0)

@@ -24,10 +24,10 @@ public class GameLogic {
         this.monsters.add(kong);
         this.monsters.add(gigazaur);
         this.monsters.add(alien);
-        deck = new Deck();
         scanner = new Scanner(System.in);
         result = new HashMap<Dice, Integer>();
         sendMessage = new SendMessage(monsters, scanner);
+        deck = new Deck(sendMessage);
         diceController = new DiceController(monsters, sendMessage, result, deck);
         winCondition = new WinCondition(monsters, sendMessage);
 
@@ -56,7 +56,7 @@ public class GameLogic {
             gainStarinTokyo(currentMonster);
             playerStatus(currentMonster, i);
             diceController.diceController(i);
-            diceController.diceResult.diceResult(i, currentMonster);
+            diceController.diceResult.diceResult(i, currentMonster, deck);
         }
         winCondition.winCondition();
     }
