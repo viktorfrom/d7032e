@@ -22,13 +22,9 @@ public class Store {
             } else
                 currentMonster.cards.add(store[num]);
             // Deduct the cost of the card from energy
-            currentMonster.energy += -(store[num].getCost() - currentMonster.cardEffect("cardsCostLess")); // Alient
-            // Metabolism
+            currentMonster.energy -= (store[num].getCost() - currentMonster.cardEffect("cardsCostLess")); // Alient
+
             // Draw a new card from the deck to replace the card that was bought
-            // deck.store[buy] = deck.deck.remove(0);
-
-            // removeStoreCard(buy);
-
             setStoreCard(num, card);
         }
 
@@ -39,9 +35,7 @@ public class Store {
     }
 
     public void setStoreCard(int cardIndex, Card card) {
-        System.out.println(card);
         this.store[cardIndex] = card;
-        System.out.println(this.store[0]);
     }
 
     // The toString() method returns the string representation of the object.
