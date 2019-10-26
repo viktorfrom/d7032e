@@ -18,7 +18,7 @@ public class ClawResult {
 
     public void clawResult(int i, Monster currentMonster) {
         Dice aClaw = new Dice(Dice.getCLAWS());
-        if (result.containsKey(aClaw)) {
+        if (this.result.containsKey(aClaw)) {
             currentMonster.stars += currentMonster.cardEffect("starsWhenAttacking"); // Alpha Monster
             monsterOutsideTokyo(aClaw, i, currentMonster);
         }
@@ -26,11 +26,11 @@ public class ClawResult {
 
     private void monsterOutsideTokyo(Dice aClaw, int i, Monster currentMonster) {
         if (currentMonster.inTokyo) {
-            for (int mon = 0; mon < monsters.size(); mon++) {
+            for (int mon = 0; mon < this.monsters.size(); mon++) {
                 int moreDamage = currentMonster.cardEffect("moreDamage"); // Acid Attack
-                int totalDamage = result.get(aClaw).intValue() + moreDamage;
-                if (mon != i && totalDamage > monsters.get(mon).cardEffect("armor")) { // Armor Plating
-                    monsters.get(mon).currentHealth += -totalDamage;
+                int totalDamage = this.result.get(aClaw).intValue() + moreDamage;
+                if (mon != i && totalDamage > this.monsters.get(mon).cardEffect("armor")) { // Armor Plating
+                    this.monsters.get(mon).currentHealth += -totalDamage;
                 }
             }
         } else {
@@ -41,13 +41,13 @@ public class ClawResult {
     }
 
     private void attackMonsterInTokyo(Dice aClaw, Monster currentMonster, Boolean monsterInTokyo) {
-        for (int mon = 0; mon < monsters.size(); mon++) {
-            if (monsters.get(mon).inTokyo) {
+        for (int mon = 0; mon < this.monsters.size(); mon++) {
+            if (this.monsters.get(mon).inTokyo) {
                 monsterInTokyo = true;
                 int moreDamage = currentMonster.cardEffect("moreDamage"); // Acid Attack
-                int totalDamage = result.get(aClaw).intValue() + moreDamage;
-                if (totalDamage > monsters.get(mon).cardEffect("armor")) // Armor Plating
-                    monsters.get(mon).currentHealth += -totalDamage;
+                int totalDamage = this.result.get(aClaw).intValue() + moreDamage;
+                if (totalDamage > this.monsters.get(mon).cardEffect("armor")) // Armor Plating
+                    this.monsters.get(mon).currentHealth += -totalDamage;
                 // 6e. If you were outside, then the monster inside tokyo may decide to leave
                 // Tokyo
                 monsterInTokyoLeave(mon, currentMonster, monsterInTokyo);
@@ -57,10 +57,10 @@ public class ClawResult {
 
     private void monsterInTokyoLeave(int mon, Monster currentMonster, Boolean monsterInTokyo) {
 
-        String answer = sendMessage.sendMessage(mon, "ATTACKED:You have " + monsters.get(mon).currentHealth
+        String answer = sendMessage.sendMessage(mon, "ATTACKED:You have " + this.monsters.get(mon).currentHealth
                 + " health left. Do you wish to leave Tokyo? [YES/NO]\n");
         if (answer.equalsIgnoreCase("YES")) {
-            monsters.get(mon).inTokyo = false;
+            this.monsters.get(mon).inTokyo = false;
             monsterInTokyo = false;
         }
     }
