@@ -1,5 +1,6 @@
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class PowerUpServer {
     private ArrayList<Monster> monsters;
@@ -10,7 +11,9 @@ public class PowerUpServer {
         monsters = new ArrayList<Monster>();
         gameLogic = new GameLogic(monsters);
         serverConnection = new ServerConnection(monsters);
+        Collections.shuffle(monsters);
         serverConnection.connectToClient();
+        Collections.shuffle(monsters);
 
         while (true) {
             gameLogic.playerTurn();

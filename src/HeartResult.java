@@ -13,7 +13,6 @@ public class HeartResult {
     }
 
     public void heartResult(int i, Monster currentMonster) {
-        System.out.println(currentMonster.getName());
         if (result.containsKey(this.aHeart)) { // +1 currentHealth per heart, up to maxHealth
             if (currentMonster.currentHealth + result.get(this.aHeart).intValue() >= currentMonster.maxHealth) {
                 currentMonster.currentHealth = currentMonster.maxHealth;

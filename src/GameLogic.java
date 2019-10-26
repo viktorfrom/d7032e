@@ -27,11 +27,10 @@ public class GameLogic {
         scanner = new Scanner(System.in);
         result = new HashMap<Dice, Integer>();
         sendMessage = new SendMessage(monsters, scanner);
-        deck = new Deck(sendMessage);
         diceController = new DiceController(monsters, sendMessage, result, deck);
         winCondition = new WinCondition(monsters, sendMessage);
 
-        Collections.shuffle(monsters);
+        deck = new Deck(sendMessage);
     }
 
     public void playerTurn() {

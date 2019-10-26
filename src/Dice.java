@@ -1,7 +1,7 @@
 public class Dice implements Comparable<Dice> {
     private static final int HEART = 0;
     private static final int ENERGY = 4;
-    private static final int CLAWS = 5;
+    static final int CLAWS = 5;
     private int value = -1;
 
     public Dice(int value) {
