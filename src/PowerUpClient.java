@@ -4,11 +4,11 @@ import java.net.*;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.Scanner;
 
-public class KingTokyoPowerUpClient {
+public class PowerUpClient {
     private boolean bot;
     private Scanner scanner = new Scanner(System.in);
 
-    public KingTokyoPowerUpClient(boolean bot) throws IOException {
+    public PowerUpClient(boolean bot) throws IOException {
         this.bot = bot;
         connectToServer();
     }
@@ -88,9 +88,9 @@ public class KingTokyoPowerUpClient {
 
     public static void main(String argv[]) throws IOException {
         if (argv.length != 0) {
-            new KingTokyoPowerUpClient(true);
+            new PowerUpClient(true);
         } else {
-            new KingTokyoPowerUpClient(false);
+            new PowerUpClient(false);
         }
     }
 }
