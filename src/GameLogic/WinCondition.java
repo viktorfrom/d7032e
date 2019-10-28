@@ -1,6 +1,6 @@
-package GameLogic;
+package gamelogic;
 
-import View.SendMessage;
+import view.SendMessage;
 
 import java.util.ArrayList;
 

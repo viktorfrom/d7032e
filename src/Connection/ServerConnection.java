@@ -1,6 +1,6 @@
-package Connection;
+package connection;
 
-import GameLogic.Monster;
+import gamelogic.Monster;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;

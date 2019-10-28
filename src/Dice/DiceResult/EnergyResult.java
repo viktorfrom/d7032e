@@ -1,7 +1,7 @@
-package Dice.DiceResult;
+package dice.diceresult;
 
-import Dice.Dice;
-import GameLogic.Monster;
+import dice.Dice;
+import gamelogic.Monster;
 
 import java.util.HashMap;
 

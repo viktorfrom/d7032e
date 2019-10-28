@@ -1,7 +1,7 @@
-package Connection;
+package connection;
 
-import GameLogic.Monster;
-import GameLogic.GameLogic;
+import gamelogic.Monster;
+import gamelogic.GameLogic;
 
 import java.io.IOException;
 import java.util.ArrayList;

@@ -1,4 +1,4 @@
-package Dice;
+package dice;
 
 public class Dice implements Comparable<Dice> {
     private static final int HEART = 0;

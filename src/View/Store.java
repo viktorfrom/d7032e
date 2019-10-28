@@ -1,7 +1,7 @@
-package View;
+package view;
 
-import Deck.Card;
-import GameLogic.Monster;
+import deck.Card;
+import gamelogic.Monster;
 
 public class Store {
     // private Card[] store = new Card[3];

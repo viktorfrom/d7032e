@@ -1,7 +1,6 @@
-package GameLogic;
+package gamelogic;
 
-import Deck.Card;
-import Deck.Effect;
+import deck.*;
 
 import java.net.Socket;
 import java.io.BufferedReader;

@@ -1,4 +1,5 @@
-package Deck;
+package deck;
+
 
 public class Card {
     private String name;

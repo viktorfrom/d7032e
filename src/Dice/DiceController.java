@@ -1,9 +1,9 @@
-package Dice;
+package dice;
 
-import Dice.DiceResult.DiceResult;
-import View.SendMessage;
-import GameLogic.Monster;
-import Deck.Deck;
+import dice.diceresult.DiceResult;
+import view.SendMessage;
+import gamelogic.Monster;
+import deck.Deck;
 
 import java.util.ArrayList;
 import java.util.Collections;

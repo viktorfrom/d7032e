@@ -1,4 +1,4 @@
-package Deck;
+package deck;
     
 /**
     The Effect class initiates values of card effects and can be modified using setters.

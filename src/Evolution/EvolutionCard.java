@@ -1,7 +1,7 @@
-package Evolution;
+package evolution;
 
-import View.SendMessage;
-import GameLogic.Monster;
+import view.SendMessage;
+import gamelogic.Monster;
 
 import java.util.ArrayList;
 

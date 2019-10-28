@@ -1,9 +1,9 @@
-package GameLogic;
+package gamelogic;
 
-import View.SendMessage;
-import Dice.DiceController;
-import Deck.Deck;
-import Dice.*;
+import view.SendMessage;
+import dice.DiceController;
+import deck.Deck;
+import dice.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;

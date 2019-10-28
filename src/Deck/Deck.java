@@ -1,7 +1,7 @@
-package Deck;
+package deck;
 
-import View.SendMessage;
-import View.Store;
+import view.SendMessage;
+import view.Store;
 
 import java.util.ArrayList;
 import java.util.Collections;
