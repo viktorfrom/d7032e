@@ -53,8 +53,8 @@ public class GameLogic {
          */
         for (int i = 0; i < monsters.size(); i++) {
             Monster currentMonster = monsters.get(i);
-            if (currentMonster.currentHealth <= 0) {
-                currentMonster.inTokyo = false;
+            if (currentMonster.getCurrentHealth() <= 0) {
+                currentMonster.setInTokyo(false);
                 continue;
             }
 
@@ -67,19 +67,19 @@ public class GameLogic {
     }
 
     private void gainStarinTokyo(Monster currentMonster) {
-        if (currentMonster.inTokyo) {
-            currentMonster.stars += 1;
+        if (currentMonster.getInTokyo()) {
+            currentMonster.increaseStars(1);
         }
     }
 
     private void playerStatus(Monster currentMonster, int i) {
-        String statusUpdate = "You are " + currentMonster.name + " and it is your turn. Here are the stats";
+        String statusUpdate = "You are " + currentMonster.getName() + " and it is your turn. Here are the stats";
         for (int count = 0; count < 3; count++) {
-            statusUpdate += ":" + monsters.get(count).name
-                    + (monsters.get(count).inTokyo ? " is in Tokyo " : " is not in Tokyo ");
-            statusUpdate += "with " + monsters.get(count).currentHealth + " health, " + monsters.get(count).stars
+            statusUpdate += ":" + monsters.get(count).getName()
+                    + (monsters.get(count).getInTokyo() ? " is in Tokyo " : " is not in Tokyo ");
+            statusUpdate += "with " + monsters.get(count).getCurrentHealth() + " health, " + monsters.get(count).getStars()
                     + " stars, ";
-            statusUpdate += monsters.get(count).energy + " energy, and owns the following cards:";
+            statusUpdate += monsters.get(count).getEnergy() + " energy, and owns the following cards:";
             statusUpdate += monsters.get(count).cardsToString();
         }
         sendMessage.sendMessage(i, statusUpdate + "\n");

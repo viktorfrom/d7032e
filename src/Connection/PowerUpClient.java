@@ -5,6 +5,9 @@ import java.io.*;
 import java.net.*;
 import java.util.concurrent.ThreadLocalRandom;
 
+/**
+ * The PowerUpClient class initiates client details.
+ **/
 public class PowerUpClient {
     private ClientConnection clientConnection;
 

@@ -10,6 +10,10 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 
+/**
+ * The ServerConnection class sets up a server requiring a minimum of two
+ * clients to connect before the game can start.
+ **/
 public class ServerConnection {
     private ArrayList<Monster> monsters;
 
@@ -18,7 +22,8 @@ public class ServerConnection {
     }
 
     public void connectToClient() throws IOException {
-        System.out.println("Server up and running. trying to establish connection to client(s)...");
+        System.out.println(
+                "Server up and running, atleast two clients needs to connect to start the game. Trying to establish connection to client(s)...");
         try {
             ServerSocket aSocket = new ServerSocket(2048);
             // assume two online clients
@@ -27,13 +32,13 @@ public class ServerConnection {
                 BufferedReader inFromClient = new BufferedReader(
                         new InputStreamReader(connectionSocket.getInputStream()));
                 DataOutputStream outToClient = new DataOutputStream(connectionSocket.getOutputStream());
-                outToClient.writeBytes("You are the monster: " + this.monsters.get(onlineClient).name + "\n");
+                outToClient.writeBytes("You are the monster: " + this.monsters.get(onlineClient).getName() + "\n");
 
-                this.monsters.get(onlineClient).connection = connectionSocket;
-                this.monsters.get(onlineClient).inFromClient = inFromClient;
-                this.monsters.get(onlineClient).outToClient = outToClient;
+                this.monsters.get(onlineClient).setConnection(connectionSocket);
+                this.monsters.get(onlineClient).setInFromClient(inFromClient);
+                this.monsters.get(onlineClient).setOutToClient(outToClient);
 
-                System.out.println("Eastablished connection to " + this.monsters.get(onlineClient).name);
+                System.out.println("Eastablished connection to " + this.monsters.get(onlineClient).getName());
             }
             aSocket.close();
 

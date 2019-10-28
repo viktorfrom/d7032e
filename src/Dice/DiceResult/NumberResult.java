@@ -16,7 +16,7 @@ public class NumberResult {
         for (int num = 1; num < 4; num++) {
             if (result.containsKey(new Dice(num)))
                 if (result.get(new Dice(num)).intValue() >= 3)
-                    currentMonster.stars += num + (result.get(new Dice(num)).intValue() - 3);
+                    currentMonster.increaseStars(num + (result.get(new Dice(num)).intValue() - 3));
         }
     }
 }

@@ -14,19 +14,20 @@ public class Store {
     }
 
     public void storeWindow(int i, Monster currentMonster, Card card) {
-        String msg = "PURCHASE: Do you want to buy any of the cards from the store? (you have " + currentMonster.energy
-                + " energy) [#/-1]:" + this + "\n";
+        String msg = "PURCHASE: Do you want to buy any of the cards from the store? (you have "
+                + currentMonster.getEnergy() + " energy) [#/-1]:" + this + "\n";
         String answer = sendMessage.sendMessage(i, msg);
         int num = Integer.parseInt(answer);
-        if (num > 0 && (currentMonster.energy >= (store[num].getCost() - currentMonster.cardEffect("cardsCostLess")))) { // Alien
-                                                                                                                         // Metabolism
+        if (num > 0 && (currentMonster
+                .getEnergy() >= (store[num].getCost() - currentMonster.cardEffect("cardsCostLess")))) { // Alien
+            // Metabolism
             if (store[num].getDiscard()) {
                 // 7a. Play "DISCARD" cards immediately
-                currentMonster.stars += store[num].getEffect().getStars();
+                currentMonster.increaseStars(store[num].getEffect().getStars());
             } else
                 currentMonster.cards.add(store[num]);
             // Deduct the cost of the card from energy
-            currentMonster.energy -= (store[num].getCost() - currentMonster.cardEffect("cardsCostLess")); // Alient
+            currentMonster.decreaseEnergy(store[num].getCost() - currentMonster.cardEffect("cardsCostLess")); // Alient
 
             // Draw a new card from the deck to replace the card that was bought
             setStoreCard(num, card);

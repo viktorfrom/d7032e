@@ -6,6 +6,10 @@ import view.Store;
 import java.util.ArrayList;
 import java.util.Collections;
 
+/**
+ * The Deck class initiates a deck of Cards and shuffles the cards contained
+ * within.
+ **/
 public class Deck {
     private ArrayList<Card> deck = new ArrayList<Card>();
     private Store store;

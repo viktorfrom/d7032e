@@ -21,10 +21,11 @@ public class HeartResult {
 
     public void heartResult(int i, Monster currentMonster) {
         if (result.containsKey(this.aHeart)) { // +1 currentHealth per heart, up to maxHealth
-            if (currentMonster.currentHealth + result.get(this.aHeart).intValue() >= currentMonster.maxHealth) {
-                currentMonster.currentHealth = currentMonster.maxHealth;
+            if (currentMonster.getCurrentHealth() + result.get(this.aHeart).intValue() >= currentMonster
+                    .getMaxHealth()) {
+                currentMonster.setCurrentHealth(currentMonster.getMaxHealth());
             } else {
-                currentMonster.currentHealth += result.get(this.aHeart).intValue();
+                currentMonster.increaseCurrentHealth(result.get(this.aHeart).intValue());
             }
             threeHearts(i, currentMonster);
         }

@@ -15,15 +15,15 @@ public class EvolutionCard {
     }
 
     public void powerUp(int i, Monster currentMonster) {
-        if (currentMonster.name.equals("Kong")) {
+        if (currentMonster.getName().equals("Kong")) {
             kongPowerUp(i, currentMonster);
         }
 
-        if (currentMonster.name.equals("Gigazaur")) {
+        if (currentMonster.getName().equals("Gigazaur")) {
             gigazaurPowerUp(i, currentMonster);
         }
 
-        if (currentMonster.name.equals("Alienoid")) {
+        if (currentMonster.getName().equals("Alienoid")) {
             alienoidPowerUp(i, currentMonster);
         }
     }
@@ -36,7 +36,7 @@ public class EvolutionCard {
         sendMessage.sendMessage(i, "POWERUP: Deal 2 damage to all others\n");
         for (int mon = 0; mon < monsters.size(); mon++) {
             if (mon != i) {
-                monsters.get(mon).currentHealth -= 2;
+                monsters.get(mon).decreaseCurrentHealth(2);
             }
         }
     }
@@ -46,11 +46,11 @@ public class EvolutionCard {
         // Current support is only for the Radioactive Waste
         // Add support for keeping it secret until played
         sendMessage.sendMessage(i, "POWERUP: Receive 2 energy and 1 health\n");
-        currentMonster.energy += 2;
-        if (currentMonster.currentHealth + 1 >= currentMonster.maxHealth) {
-            currentMonster.currentHealth = currentMonster.maxHealth;
+        currentMonster.increaseEnergy(2);
+        if (currentMonster.getCurrentHealth() + 1 >= currentMonster.getMaxHealth()) {
+            currentMonster.setCurrentHealth(currentMonster.getMaxHealth());
         } else {
-            currentMonster.currentHealth += 1;
+            currentMonster.increaseCurrentHealth(1);
         }
     }
 
@@ -59,6 +59,6 @@ public class EvolutionCard {
         // Current support is only for the Alien Scourge
         // Add support for keeping it secret until played
         sendMessage.sendMessage(i, "POWERUP: Receive 2 stars\n");
-        currentMonster.stars += 2;
+        currentMonster.increaseStars(2);
     }
 }

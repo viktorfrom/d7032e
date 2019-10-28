@@ -7,6 +7,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 
+/**
+ * The PowerUpServer class initiates server details and handles communication
+ * between clients.
+ **/
 public class PowerUpServer {
     private ArrayList<Monster> monsters;
     private ServerConnection serverConnection;

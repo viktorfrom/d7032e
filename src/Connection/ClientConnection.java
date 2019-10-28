@@ -4,6 +4,9 @@ import java.util.*;
 import java.io.*;
 import java.util.Scanner;
 
+/**
+ * The ClientConnection class sets up a client and handles the client communication.
+ **/
 public class ClientConnection {
     private boolean bot;
     private Scanner scanner = new Scanner(System.in);

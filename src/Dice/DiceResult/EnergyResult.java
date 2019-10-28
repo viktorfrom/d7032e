@@ -16,6 +16,6 @@ public class EnergyResult {
 
     public void energyResult(Monster currentMonster) {
         if (result.containsKey(this.anEnergy))
-            currentMonster.energy += result.get(anEnergy).intValue();
+            currentMonster.increaseEnergy(result.get(anEnergy).intValue());
     }
 }

@@ -1,15 +1,15 @@
 package deck;
-    
+
 /**
-    The Effect class initiates values of card effects and can be modified using setters.
-**/
+ * The Effect class initiates values of card attributes.
+ **/
 public class Effect {
     private int damage;
-    private int cardPrice; 
-    private int starsOnAttack; 
-    private int stars; 
-    private int armor; 
-    
+    private int cardPrice;
+    private int starsOnAttack;
+    private int stars;
+    private int armor;
+
     public Effect() {
         this.damage = 0;
         this.cardPrice = 0;
@@ -21,7 +21,7 @@ public class Effect {
     public void setDamage(int damage) {
         this.damage = damage;
     }
-    
+
     public void setCardPrice(int price) {
         this.cardPrice = price;
     }
@@ -37,6 +37,7 @@ public class Effect {
     public void setArmor(int armor) {
         this.armor = armor;
     }
+
     public int getDamage() {
         return this.damage;
     }
@@ -48,7 +49,7 @@ public class Effect {
     public int getStarOnAttack() {
         return this.starsOnAttack;
     }
-    
+
     public int getStars() {
         return this.stars;
     }

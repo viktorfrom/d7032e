@@ -1,6 +1,8 @@
 package deck;
 
-
+/**
+ * The Card class contains functionality of cards and their attributes.
+ **/
 public class Card {
     private String name;
     private int cost;
