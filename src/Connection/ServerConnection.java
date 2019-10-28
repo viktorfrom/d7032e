@@ -1,3 +1,7 @@
+package Connection;
+
+import GameLogic.Monster;
+
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -31,6 +35,7 @@ public class ServerConnection {
 
                 System.out.println("Eastablished connection to " + this.monsters.get(onlineClient).name);
             }
+            aSocket.close();
 
         } catch (IOException Error) {
             System.out.println("Error: Could not establish connection to client(s)." + Error);

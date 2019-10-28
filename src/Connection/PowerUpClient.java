@@ -1,3 +1,5 @@
+package Connection;
+
 import java.util.*;
 import java.io.*;
 import java.net.*;
@@ -23,6 +25,7 @@ public class PowerUpClient {
             System.out.println("Connection established to server! " + name);
             clientConnection.serverCommunication(rnd, outToServer, inFromServer);
 
+            aSocket.close();
         } catch (IOException Error) {
             System.out.println("Error: Could not establish connection to server." + Error);
 

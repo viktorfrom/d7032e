@@ -1,3 +1,7 @@
+package View;
+
+import GameLogic.Monster;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 

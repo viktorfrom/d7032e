@@ -1,3 +1,8 @@
+package Evolution;
+
+import View.SendMessage;
+import GameLogic.Monster;
+
 import java.util.ArrayList;
 
 public class EvolutionCard {

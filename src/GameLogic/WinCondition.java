@@ -1,4 +1,9 @@
+package GameLogic;
+
+import View.SendMessage;
+
 import java.util.ArrayList;
+
 
 public class WinCondition {
     private ArrayList<Monster> monsters;

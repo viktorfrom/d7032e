@@ -1,3 +1,5 @@
+package Dice;
+
 public class Dice implements Comparable<Dice> {
     private static final int HEART = 0;
     private static final int ENERGY = 4;

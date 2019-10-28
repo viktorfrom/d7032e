@@ -1,3 +1,8 @@
+package GameLogic;
+
+import Deck.Card;
+import Deck.Effect;
+
 import java.net.Socket;
 import java.io.BufferedReader;
 import java.util.ArrayList;
@@ -7,7 +12,8 @@ import java.io.DataOutputStream;
     The Monster class initiates player avatars at the start of the game.
 **/
 public class Monster {
-    ArrayList<Card> cards = new ArrayList<Card>();
+    public ArrayList<Card> cards = new ArrayList<Card>();
+    //TODO
     public String name;
     public int energy, stars, maxHealth, currentHealth;
     public boolean inTokyo;

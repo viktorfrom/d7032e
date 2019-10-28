@@ -1,3 +1,10 @@
+package Dice;
+
+import Dice.DiceResult.DiceResult;
+import View.SendMessage;
+import GameLogic.Monster;
+import Deck.Deck;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -10,7 +17,7 @@ public class DiceController {
     private SendMessage sendMessage;
     private String rolledDice;
     private String[] reroll;
-    DiceResult diceResult;
+    public DiceResult diceResult;
 
     public DiceController(ArrayList<Monster> monsters, SendMessage sendMessage, HashMap<Dice, Integer> result,
             Deck deck) {

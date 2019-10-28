@@ -1,3 +1,8 @@
+package Dice.DiceResult;
+
+import Dice.Dice;
+import GameLogic.Monster;
+
 import java.util.HashMap;
 
 public class NumberResult {

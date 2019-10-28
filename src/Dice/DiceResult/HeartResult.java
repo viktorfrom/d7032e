@@ -1,3 +1,10 @@
+package Dice.DiceResult;
+
+import Dice.Dice;
+import GameLogic.Monster;
+import View.SendMessage;
+import Evolution.*;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 

@@ -1,3 +1,8 @@
+package Connection;
+
+import GameLogic.Monster;
+import GameLogic.GameLogic;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
