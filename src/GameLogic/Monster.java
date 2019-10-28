@@ -31,11 +31,9 @@ public class Monster {
         this.outToClient = null;
     }
 
-    // search all available cards and return the effect value of an effect
     public int cardEffect(String effectName) {
         for (int i = 0; i < cards.size(); i++) {
             try {
-                // Find variable by "name"
                 if (Effect.class.getField(effectName).getInt(cards.get(i).getEffect()) > 0) {
                     return Effect.class.getField(effectName).getInt(cards.get(i).getEffect());
                 }

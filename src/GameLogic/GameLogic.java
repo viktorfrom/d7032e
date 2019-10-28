@@ -9,6 +9,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
 
+
+/**
+ * The GameLogic class initiates game attributes and routes game decision during player turns.
+ **/
 public class GameLogic {
     private ArrayList<Monster> monsters;
     private Scanner scanner;

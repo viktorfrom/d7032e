@@ -5,6 +5,9 @@ import gamelogic.Monster;
 
 import java.util.HashMap;
 
+/**
+ * The NumberResult class handles game number dice result.
+ **/
 public class NumberResult {
     private HashMap<Dice, Integer> result;
 

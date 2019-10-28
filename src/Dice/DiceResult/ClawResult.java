@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
- * The ClawResult class handles game dice result and game logic of players being
+ * The ClawResult class handles game claw dice result and game logic of players being
  * attacked outside or inside of Tokyo.
  **/
 public class ClawResult {
@@ -25,12 +25,12 @@ public class ClawResult {
     public void clawResult(int i, Monster currentMonster) {
         Dice aClaw = new Dice(Dice.getCLAWS());
         if (result.containsKey(aClaw)) {
-            currentMonster.increaseStars(currentMonster.cardEffect("starsWhenAttacking")); // Alpha Monster
+            currentMonster.increaseStars(currentMonster.cardEffect("starsWhenAttacking")); 
             if (currentMonster.getInTokyo()) {
                 for (int mon = 0; mon < monsters.size(); mon++) {
-                    int moreDamage = currentMonster.cardEffect("moreDamage"); // Acid Attack
+                    int moreDamage = currentMonster.cardEffect("moreDamage"); 
                     int totalDamage = result.get(aClaw).intValue() + moreDamage;
-                    if (mon != i && totalDamage > monsters.get(mon).cardEffect("armor")) { // Armor Plating
+                    if (mon != i && totalDamage > monsters.get(mon).cardEffect("armor")) { 
                         monsters.get(mon).decreaseCurrentHealth(totalDamage);
                     }
                 }
@@ -39,12 +39,11 @@ public class ClawResult {
                 for (int mon = 0; mon < monsters.size(); mon++) {
                     if (monsters.get(mon).getInTokyo()) {
                         monsterInTokyo = true;
-                        int moreDamage = currentMonster.cardEffect("moreDamage"); // Acid Attack
+                        int moreDamage = currentMonster.cardEffect("moreDamage");
                         int totalDamage = result.get(aClaw).intValue() + moreDamage;
-                        if (totalDamage > monsters.get(mon).cardEffect("armor")) // Armor Plating
+                        if (totalDamage > monsters.get(mon).cardEffect("armor")) 
                             monsters.get(mon).decreaseCurrentHealth(totalDamage);
-                        // 6e. If you were outside, then the monster inside tokyo may decide to leave
-                        // Tokyo
+
                         String answer = sendMessage.sendMessage(mon,
                                 "ATTACKED:You have " + monsters.get(mon).getCurrentHealth()
                                         + " health left. Do you wish to leave Tokyo? [YES/NO]\n");

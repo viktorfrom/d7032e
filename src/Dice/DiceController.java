@@ -11,6 +11,10 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Random;
 
+/**
+ * The DiceController handles logic between Dice values and player dice rolls in
+ * GameLogic.
+ **/
 public class DiceController {
     private static Random random = new Random();
     private ArrayList<Dice> dice;

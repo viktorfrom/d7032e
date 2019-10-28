@@ -4,7 +4,6 @@ import view.SendMessage;
 
 import java.util.ArrayList;
 
-
 public class WinCondition {
     private ArrayList<Monster> monsters;
     private SendMessage sendMessage;
@@ -39,7 +38,8 @@ public class WinCondition {
         for (int mon = 0; mon < this.monsters.size(); mon++) {
             if (this.monsters.get(mon).getStars() >= 5) {
                 for (int victory = 0; victory < this.monsters.size(); victory++) {
-                    this.sendMessage.sendMessage(victory, "Victory: " + monsters.get(mon).getName() + " has won by stars\n");
+                    this.sendMessage.sendMessage(victory,
+                            "Victory: " + monsters.get(mon).getName() + " has won by stars\n");
                 }
                 return true;
             }

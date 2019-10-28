@@ -3,8 +3,10 @@ package view;
 import deck.Card;
 import gamelogic.Monster;
 
+/**
+ * The Store class draws 3 random cards from the Card class and draws a simple interface for the store.
+ **/
 public class Store {
-    // private Card[] store = new Card[3];
     private Card[] store;
     private SendMessage sendMessage;
 
@@ -19,15 +21,12 @@ public class Store {
         String answer = sendMessage.sendMessage(i, msg);
         int num = Integer.parseInt(answer);
         if (num > 0 && (currentMonster
-                .getEnergy() >= (store[num].getCost() - currentMonster.cardEffect("cardsCostLess")))) { // Alien
-            // Metabolism
+                .getEnergy() >= (store[num].getCost() - currentMonster.cardEffect("cardsCostLess")))) { 
             if (store[num].getDiscard()) {
-                // 7a. Play "DISCARD" cards immediately
                 currentMonster.increaseStars(store[num].getEffect().getStars());
             } else
                 currentMonster.cards.add(store[num]);
-            // Deduct the cost of the card from energy
-            currentMonster.decreaseEnergy(store[num].getCost() - currentMonster.cardEffect("cardsCostLess")); // Alient
+            currentMonster.decreaseEnergy(store[num].getCost() - currentMonster.cardEffect("cardsCostLess"));
 
             // Draw a new card from the deck to replace the card that was bought
             setStoreCard(num, card);

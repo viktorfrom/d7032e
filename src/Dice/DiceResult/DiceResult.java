@@ -8,6 +8,10 @@ import deck.Deck;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+
+/**
+ * The DiceResult class returns each respective dice value in a hashmap.
+ **/
 public class DiceResult {
     private HashMap<Dice, Integer> result;
     private HeartResult heartResult;
