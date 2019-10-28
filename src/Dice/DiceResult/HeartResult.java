@@ -8,7 +8,6 @@ import evolution.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-
 /**
  * The HeartResult class handles game energy dice result.
  **/
@@ -24,12 +23,14 @@ public class HeartResult {
     }
 
     public void heartResult(int i, Monster currentMonster) {
-        if (result.containsKey(this.aHeart)) { 
-            if (currentMonster.getCurrentHealth() + result.get(this.aHeart).intValue() >= currentMonster
-                    .getMaxHealth()) {
-                currentMonster.setCurrentHealth(currentMonster.getMaxHealth());
-            } else {
-                currentMonster.increaseCurrentHealth(result.get(this.aHeart).intValue());
+        if (result.containsKey(this.aHeart)) {
+            if (!currentMonster.getInTokyo()) {
+                if (currentMonster.getCurrentHealth() + result.get(this.aHeart).intValue() >= currentMonster
+                        .getMaxHealth()) {
+                    currentMonster.setCurrentHealth(currentMonster.getMaxHealth());
+                } else {
+                    currentMonster.increaseCurrentHealth(result.get(this.aHeart).intValue());
+                }
             }
             threeHearts(i, currentMonster);
         }

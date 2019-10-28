@@ -1,5 +1,7 @@
 package view;
 
+import java.util.ArrayList;
+
 import deck.Card;
 import gamelogic.Monster;
 
@@ -15,7 +17,7 @@ public class Store {
         this.sendMessage = sendMessage;
     }
 
-    public void storeWindow(int i, Monster currentMonster, Card card) {
+    public void storeWindow(int i, Monster currentMonster, ArrayList<Card> deck) {
         String msg = "PURCHASE: Do you want to buy any of the cards from the store? (you have "
                 + currentMonster.getEnergy() + " energy) [#/-1]:" + this + "\n";
         String answer = sendMessage.sendMessage(i, msg);
@@ -29,7 +31,7 @@ public class Store {
             currentMonster.decreaseEnergy(store[num].getCost() - currentMonster.cardEffect("cardsCostLess"));
 
             // Draw a new card from the deck to replace the card that was bought
-            setStoreCard(num, card);
+            setStoreCard(num, deck.remove(0));
         }
 
     }
