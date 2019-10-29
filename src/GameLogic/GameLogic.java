@@ -20,7 +20,7 @@ public class GameLogic {
     private DiceController diceController;
     private HashMap<Dice, Integer> result;
     private WinCondition winCondition;
-    private Deck deck;
+    Deck deck;
 
     public GameLogic(ArrayList<Monster> monsters) {
         this.monsters = monsters;

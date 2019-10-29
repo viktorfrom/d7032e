@@ -43,9 +43,12 @@ public class Deck {
         deck.add(new Card("Armor Plating", 4, false, armor, "Ignore damage of 1"));
         deck.add(new Card("Commuter Train", 4, true, gainTwoStars, "+2 stars"));
         deck.add(new Card("Corner Stone", 3, true, gainOneStars, "+1 stars"));
-        // Todo: Add more cards
-        Collections.shuffle(deck);
 
+        shuffleDeck();
+    }
+
+    public void shuffleDeck() {
+        Collections.shuffle(deck);
         // Start the game with 3 cards face up in the store
         for (int i = 0; i < 3; i++) {
             store.setStoreCard(i, deck.remove(0));

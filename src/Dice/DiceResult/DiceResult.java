@@ -35,7 +35,7 @@ public class DiceResult {
         clawResult.clawResult(i, currentMonster);
         energyResult.energyResult(currentMonster);
 
-        deck.getStore().storeWindow(i, currentMonster, deck.getDeck());
+        deck.getStore().storeWindow(i, currentMonster, deck);
 
     }
 
