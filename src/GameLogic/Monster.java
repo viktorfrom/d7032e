@@ -85,6 +85,10 @@ public class Monster {
         this.currentHealth += health;
     }
 
+    public void decreaseStars(int stars) {
+        this.stars -= stars;
+    }
+    
     public void decreaseEnergy(int energy) {
         this.energy -= energy;
     }

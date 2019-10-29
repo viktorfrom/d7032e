@@ -36,10 +36,10 @@ public class WinCondition {
 
     private boolean monstersAlive() {
         for (int mon = 0; mon < this.monsters.size(); mon++) {
-            if (this.monsters.get(mon).getStars() >= 5) {
+            if (this.monsters.get(mon).getStars() >= 20) {
                 for (int victory = 0; victory < this.monsters.size(); victory++) {
                     this.sendMessage.sendMessage(victory,
-                            "Victory: " + monsters.get(mon).getName() + " has won by stars\n");
+                            "Victory: " + monsters.get(mon).getName() + " has won by " + monsters.get(mon).getStars() + " stars\n");
                 }
                 return true;
             }

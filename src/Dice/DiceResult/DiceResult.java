@@ -42,5 +42,4 @@ public class DiceResult {
     public HashMap<Dice, Integer> getResult(){
         return this.result;
     }
-
 }

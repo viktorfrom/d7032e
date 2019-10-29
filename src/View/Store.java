@@ -4,9 +4,6 @@ import deck.Card;
 import deck.Deck;
 import gamelogic.Monster;
 
-import java.util.ArrayList;
-
-
 /**
  * The Store class draws 3 random cards from the Card class and draws a simple
  * interface for the store.
