@@ -13,6 +13,7 @@ import java.util.ArrayList;
 /**
  * The ServerConnection class sets up a server requiring a minimum of two
  * clients to connect before the game can start.
+ * @throws IOException
  **/
 public class ServerConnection {
     private ArrayList<Monster> monsters;

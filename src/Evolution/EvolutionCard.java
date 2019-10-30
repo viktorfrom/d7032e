@@ -5,6 +5,10 @@ import gamelogic.Monster;
 
 import java.util.ArrayList;
 
+/**
+ * The EvolutionCard class handles evolution card functionality and their
+ * respective game mechanic for each monster.
+ */
 public class EvolutionCard {
     private KongEvolution kongEvolution;
     private AlienoidEvolution alienoidEvolution;
@@ -30,7 +34,5 @@ public class EvolutionCard {
             alienoidEvolution.alienoidPowerUp(i, currentMonster);
         }
     }
-
-
 
 }

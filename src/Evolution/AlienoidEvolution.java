@@ -7,7 +7,9 @@ import dice.Dice;
 import dice.diceresult.DiceResult;
 import gamelogic.Monster;
 import view.SendMessage;
-
+/**
+ * @throws IllegalArgumentException 
+ */
 public class AlienoidEvolution {
     private SendMessage sendMessage;
     private ArrayList<Monster> monsters;

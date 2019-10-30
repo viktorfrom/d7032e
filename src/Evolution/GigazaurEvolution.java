@@ -6,6 +6,9 @@ import java.util.Random;
 import gamelogic.Monster;
 import view.SendMessage;
 
+/**
+ * @throws IllegalArgumentException 
+ */
 public class GigazaurEvolution {
     private SendMessage sendMessage;
     private ArrayList<Monster> monsters;

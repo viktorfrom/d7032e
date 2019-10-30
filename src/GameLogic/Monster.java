@@ -58,6 +58,10 @@ public class Monster {
         this.stars = stars;
     }
 
+    public void setEnergy(int energy) {
+        this.energy = energy;
+    }
+
     public void setCurrentHealth(int health) {
         this.currentHealth = health;
     }

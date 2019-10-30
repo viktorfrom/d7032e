@@ -7,6 +7,8 @@ import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * The PowerUpClient class initiates client details.
+ * 
+ * @throws IOException
  **/
 public class PowerUpClient {
     private ClientConnection clientConnection;
@@ -35,6 +37,10 @@ public class PowerUpClient {
         }
     }
 
+    /**
+     * @param args the command line arguments
+     * @throws IOException
+     **/
     public static void main(String argv[]) throws IOException {
         if (argv.length != 0) {
             new PowerUpClient(true);

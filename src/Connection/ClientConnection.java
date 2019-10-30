@@ -6,6 +6,7 @@ import java.util.Scanner;
 
 /**
  * The ClientConnection class sets up a client and handles the client communication.
+ * @throws IOException
  **/
 public class ClientConnection {
     private boolean bot;

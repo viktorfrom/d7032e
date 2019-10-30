@@ -10,6 +10,7 @@ import java.util.Collections;
 /**
  * The PowerUpServer class initiates server details and handles communication
  * between clients. Shuffles Monster avatars and player turn at start of game.
+ * @throws IOException
  **/
 public class PowerUpServer {
     private ArrayList<Monster> monsters;

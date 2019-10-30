@@ -8,6 +8,9 @@ import dice.Dice;
 import gamelogic.*;
 import view.SendMessage;
 
+/**
+ * @throws IllegalArgumentException 
+ */
 public class KongEvolution {
     private SendMessage sendMessage;
     private ArrayList<Monster> monsters;

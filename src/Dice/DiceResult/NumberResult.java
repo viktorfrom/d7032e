@@ -17,9 +17,17 @@ public class NumberResult {
 
     public void numberResult(int i, Monster currentMonster) {
         for (int num = 1; num < 4; num++) {
-            if (result.containsKey(new Dice(num)))
-                if (result.get(new Dice(num)).intValue() >= 3)
-                    currentMonster.increaseStars(num + (result.get(new Dice(num)).intValue() - 3));
+        System.out.println("test containsKey " + result.containsKey(new Dice(num))) ;
+            if (result.containsKey(new Dice(num))) {
+                threeOfNum(num, currentMonster);
+            }
         }
     }
+
+    public void threeOfNum(int num, Monster currentMonster) {
+        if (result.get(new Dice(num)).intValue() >= 3) {
+            currentMonster.increaseStars(num + (result.get(new Dice(num)).intValue() - 3));
+        }
+    }
+
 }

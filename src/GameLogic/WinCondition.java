@@ -25,7 +25,6 @@ public class WinCondition {
 
     private void isAlive() {
         for (int i = 0; i < monsters.size(); i++) {
-            System.out.println(monsters.get(i).getCurrentHealth());
             if (monsters.get(i).getCurrentHealth() <= 0) {
                 this.alive -= 1;
             }
