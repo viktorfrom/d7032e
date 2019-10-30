@@ -102,6 +102,13 @@ public class KingTokyoTests {
         // failing, this cannot be tested.
     }
 
+    // Test 9. Select which of your 6 dice to reroll
+    @Test
+    @Ignore
+    public void rollSelectDieToRoll() {
+        // Selected die from user input is not stored in a state and thus cannot be checked.
+    }
+
     // Test 10. Reroll the selected die.
     @Test
     @Ignore
