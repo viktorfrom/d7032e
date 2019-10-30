@@ -13,7 +13,7 @@ public class WinCondition {
     public WinCondition(ArrayList<Monster> monsters, SendMessage sendMessage) {
         this.monsters = monsters;
         this.sendMessage = sendMessage;
-        this.alive = 0;
+        this.alive = monsters.size();
         this.aliveMonster = "";
     }
 
@@ -23,8 +23,18 @@ public class WinCondition {
         }
     }
 
-    private boolean numStars() {
-        if (alive == 1) {
+    private void isAlive() {
+        for (int i = 0; i < monsters.size(); i++) {
+            System.out.println(monsters.get(i).getCurrentHealth());
+            if (monsters.get(i).getCurrentHealth() <= 0) {
+                this.alive -= 1;
+            }
+        }
+    }
+
+    public boolean monstersAlive() {
+        isAlive();
+        if (this.alive == 1) {
             for (int victory = 0; victory < this.monsters.size(); victory++) {
                 this.sendMessage.sendMessage(victory,
                         "Victory: " + this.aliveMonster + " has won by being the only one alive\n");
@@ -34,12 +44,12 @@ public class WinCondition {
         return false;
     }
 
-    private boolean monstersAlive() {
+    public boolean numStars() {
         for (int mon = 0; mon < this.monsters.size(); mon++) {
             if (this.monsters.get(mon).getStars() >= 20) {
                 for (int victory = 0; victory < this.monsters.size(); victory++) {
-                    this.sendMessage.sendMessage(victory,
-                            "Victory: " + monsters.get(mon).getName() + " has won by " + monsters.get(mon).getStars() + " stars\n");
+                    this.sendMessage.sendMessage(victory, "Victory: " + monsters.get(mon).getName() + " has won by "
+                            + monsters.get(mon).getStars() + " stars\n");
                 }
                 return true;
             }
@@ -50,4 +60,5 @@ public class WinCondition {
         }
         return false;
     }
+
 }

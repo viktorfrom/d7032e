@@ -54,6 +54,10 @@ public class Monster {
         return returnString;
     }
 
+    public void setStars(int stars) {
+        this.stars = stars;
+    }
+
     public void setCurrentHealth(int health) {
         this.currentHealth = health;
     }

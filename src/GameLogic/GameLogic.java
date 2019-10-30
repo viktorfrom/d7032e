@@ -2,7 +2,6 @@ package gamelogic;
 
 import view.SendMessage;
 import dice.DiceController;
-import evolution.EvolutionCard;
 import deck.Deck;
 import dice.*;
 
@@ -20,7 +19,6 @@ public class GameLogic {
     private SendMessage sendMessage;
     private DiceController diceController;
     private WinCondition winCondition;
-    private EvolutionCard evolutionCard;
     HashMap<Dice, Integer> result;
     Deck deck;
 
